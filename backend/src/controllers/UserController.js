@@ -4,20 +4,20 @@ connection = require('../database/connection')
 
 module.exports = {
     async index(request,response){
-        const users = connection('users').select('*');
+        const users = await connection('users').select('*');
 
         return response.json(users)
     },
 
-    async create(resquest,reponse){
-        const {name,email,senha} = request.body();
+    async create(request,response){
+        const {name,email,password} = request.body;
 
         const[id] = await connection("users").insert({
             name,
             email,
-            senha
+            password
         })
         
-        return response({id});
+        return response.json({id});
     }
 }
